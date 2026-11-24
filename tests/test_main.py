@@ -23,5 +23,18 @@ class TestAnalyzer(unittest.TestCase):
         with self.assertRaises(ValueError):
             analyze_job({'job':'bad','status':'DONE','duration_minutes':'xyz','expected_minutes':'10'})
 
+    def test_unknown_status(self):
+        job = {
+            'job': 'CUSTOMER_SYNC',
+            'status': 'RUNNING',
+            'duration_minutes': '10',
+            'expected_minutes': '20'
+        }
+
+        result = analyze_job(job)
+
+        self.assertIsNotNone(result)
+        self.assertIn('RUNNING', result)
+
 if __name__ == '__main__':
     unittest.main()

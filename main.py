@@ -29,6 +29,8 @@ def analyze_job(job, multiplier=2.0):
             raise ValueError(f'Durações inválidas no job {name}')
         if duration > expected * multiplier:
             return f'{name} - {duration:g} min (expected {expected:g} min)'
+    if status not in {'DONE', 'ERROR', 'FAILED'}:
+        return f'{name} - status não reconhecido: {status}'
     return None
 
 
